@@ -7,7 +7,7 @@ import problemRoutes from "./routes/problemRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 
-console.log("JWT_SECRET:", process.env.JWT_SECRET);
+
 const app = express();
 
 app.use(cors());
@@ -21,12 +21,14 @@ app.get("/", (req, res) => {
   res.send("AptiCode Backend Running 🚀");
 });
  
+const PORT = process.env.PORT || 5000;
+
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     console.log("MongoDB Connected ✅");
 
-    app.listen(5000, () => {
-      console.log("Server running on port 5000");
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
     });
   })
   .catch((err) => {
