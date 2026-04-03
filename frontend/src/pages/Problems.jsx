@@ -10,14 +10,14 @@ export default function Problems() {
   const [selectedStatus, setSelectedStatus] = useState("All");
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/problems")
+    fetch("https://apticode-backend.onrender.com/api/problems")
       .then((res) => res.json())
       .then((data) => setProblems(data))
       .catch((err) => console.error("Error fetching problems:", err));
 
     const token = localStorage.getItem("token");
     if (token) {
-      fetch("http://localhost:5000/api/users/me", {
+      fetch("https://apticode-backend.onrender.com/api/users/me", {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then((res) => res.json())

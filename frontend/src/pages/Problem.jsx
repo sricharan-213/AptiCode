@@ -11,7 +11,7 @@ export default function Problem() {
 
   // 🔥 Fetch problem from backend
   useEffect(() => {
-    fetch(`http://localhost:5000/api/problems/${id}`)
+    fetch(`https://apticode-backend.onrender.com/api/problems/${id}`)
       .then((res) => res.json())
       .then((data) => setProblem(data))
       .catch((err) => console.error("Error fetching problem:", err));
@@ -42,7 +42,7 @@ export default function Problem() {
 
     if (selectedOption === CORRECT_OPTION) {
       try {
-        await fetch(`http://localhost:5000/api/users/solve/${id}`, {
+        await fetch(`https://apticode-backend.onrender.com/api/users/solve/${id}`, {
           method: "POST",
           headers: { Authorization: `Bearer ${token}` }
         });

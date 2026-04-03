@@ -42,7 +42,7 @@ export default function AdminUpload() {
         }
 
         try {
-            const res = await fetch("http://localhost:5000/api/problems", {
+            const res = await fetch("https://apticode-backend.onrender.com/api/problems", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

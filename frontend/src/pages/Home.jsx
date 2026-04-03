@@ -7,7 +7,7 @@ export default function Home() {
   const [problemCount, setProblemCount] = useState(0);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/problems")
+    fetch("https://apticode-backend.onrender.com/api/problems")
       .then((res) => res.json())
       .then((data) => setProblemCount(data.length))
       .catch(() => { });

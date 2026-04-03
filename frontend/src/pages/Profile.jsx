@@ -9,7 +9,7 @@ export default function Profile() {
     const token = localStorage.getItem("token");
     if (!token) { setLoading(false); return; }
 
-    fetch("http://localhost:5000/api/users/me", {
+    fetch("https://apticode-backend.onrender.com/api/users/me", {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())
