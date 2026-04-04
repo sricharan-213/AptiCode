@@ -44,8 +44,10 @@ export default function Navbar() {
       }}
     >
       {/* Logo */}
+      <img src="image.png" alt="Logo" style={{ width: "32px", height: "32px", marginRight: "8px" }} />
       <div
         style={{
+    
           marginRight: "40px",
           fontSize: "20px",
           fontWeight: "bold",
