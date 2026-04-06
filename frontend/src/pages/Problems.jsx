@@ -30,10 +30,8 @@ export default function Problems() {
         .catch((err) => console.error("Error fetching user data:", err));
     }
   }, []);
-
   // Extract unique topics from problems
   const topics = ["All Topics", ...new Set(problems.map((p) => p.topic).filter(Boolean))];
-
   // Apply all filters
   const filtered = problems.filter((p) => {
     const matchesTopic = selectedTopic === "All Topics" || p.topic === selectedTopic;
@@ -140,15 +138,26 @@ export default function Problems() {
       </div>
 
       {/* Results count */}
-      <p style={{ color: "var(--muted-text)", fontSize: "16px", marginBottom: "16px", fontWeight: "500" }}>
-        Showing {filtered.length} of {problems.length} problems
-      </p>
+      {(() => {
+        const isFiltered =
+          selectedTopic !== "All Topics" ||
+          selectedDifficulty !== "All" ||
+          selectedStatus !== "All" ||
+          searchQuery.trim() !== "";
+        return (
+          <p style={{ color: "var(--muted-text)", fontSize: "16px", marginBottom: "16px", fontWeight: "500" }}>
+            {isFiltered
+              ? `Showing ${filtered.length} problem${filtered.length !== 1 ? "s" : ""}`
+              : `Showing ${filtered.length} of ${problems.length} problems`}
+          </p>
+        );
+      })()}
 
       {/* Problems List */}
       <div style={{ background: "var(--card-bg)", borderRadius: "12px", border: "1px solid var(--card-border)", overflow: "hidden" }}>
         <div style={{
           display: "grid",
-          gridTemplateColumns: "40px 1fr 200px 120px",
+          gridTemplateColumns: "40px 60px 1fr 200px 120px",
           padding: "18px 24px",
           borderBottom: "2px solid var(--card-border)",
           background: "rgba(255,255,255,0.02)",
@@ -159,21 +168,31 @@ export default function Problems() {
           letterSpacing: "1px"
         }}>
           <span></span>
+          <span>#</span>
           <span>Title</span>
           <span>Topic</span>
           <span style={{ textAlign: "right" }}>Difficulty</span>
         </div>
         {filtered.length > 0 ? (
-          filtered.map((problem) => (
-            <ProblemRow
-              key={problem._id}
-              id={problem._id}
-              title={problem.title}
-              difficulty={problem.difficulty}
-              topic={problem.topic}
-              solved={solvedProblems.includes(problem._id)}
-            />
-          ))
+          filtered.map((problem, index) => {
+            const isFiltered =
+              selectedTopic !== "All Topics" ||
+              selectedDifficulty !== "All" ||
+              selectedStatus !== "All" ||
+              searchQuery.trim() !== "";
+            const displayNumber = isFiltered ? index + 1 : (problem.number ?? index + 1);
+            return (
+              <ProblemRow
+                key={problem._id}
+                id={problem._id}
+                number={displayNumber}
+                title={problem.title}
+                difficulty={problem.difficulty}
+                topic={problem.topic}
+                solved={solvedProblems.includes(problem._id)}
+              />
+            );
+          })
         ) : (
           <div style={{ textAlign: "center", padding: "60px", color: "var(--muted-text)", fontSize: "18px" }}>
             No problems match your filters.
@@ -208,7 +227,7 @@ function TopicPill({ label, active, onClick }) {
   );
 }
 
-function ProblemRow({ id, title, difficulty, topic, solved }) {
+function ProblemRow({ id, number, title, difficulty, topic, solved }) {
   const navigate = useNavigate();
 
   const difficultyColor =
@@ -218,12 +237,17 @@ function ProblemRow({ id, title, difficulty, topic, solved }) {
         ? "#eab308"
         : "var(--danger)";
 
+  const handleNavigate = (e) => {
+    e.stopPropagation();
+    navigate(`/problem/${id}`);
+  };
+
   return (
     <div
       onClick={() => navigate(`/problem/${id}`)}
       style={{
         display: "grid",
-        gridTemplateColumns: "40px 1fr 200px 120px",
+        gridTemplateColumns: "40px 60px 1fr 200px 120px",
         alignItems: "center",
         padding: "20px 24px",
         borderBottom: "1px solid var(--card-border)",
@@ -243,6 +267,9 @@ function ProblemRow({ id, title, difficulty, topic, solved }) {
         {solved ? "✓" : "•"}
       </span>
 
+      {/* Question Number — clickable like LeetCode */}
+      <NumberLink number={number} onClick={handleNavigate} />
+
       {/* Title */}
       <span style={{ fontSize: "18px", fontWeight: "600" }}>{title}</span>
 
@@ -261,5 +288,26 @@ function ProblemRow({ id, title, difficulty, topic, solved }) {
         {difficulty}
       </span>
     </div>
+  );
+}
+
+function NumberLink({ number, onClick }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <span
+      onClick={onClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        fontSize: "15px",
+        fontWeight: "600",
+        color: hovered ? "var(--accent)" : "var(--muted-text)",
+        cursor: "pointer",
+        transition: "color 0.15s ease",
+        textDecoration: hovered ? "underline" : "none",
+      }}
+    >
+      {number}
+    </span>
   );
 }

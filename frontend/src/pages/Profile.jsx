@@ -48,8 +48,15 @@ export default function Profile() {
     .toUpperCase()
     .slice(0, 2);
 
-  const stats = userData.stats || {};
+  const stats          = userData.stats || {};
   const solvedProblems = userData.solvedProblems || [];
+
+  const fmtSecs = (s) => {
+    if (!s && s !== 0) return "—";
+    const m   = Math.floor(s / 60);
+    const sec = s % 60;
+    return m > 0 ? `${m}m ${sec}s` : `${sec}s`;
+  };
 
   // Helper: format relative time (e.g., 2 hours ago)
   const formatTimeAgo = (date) => {
@@ -67,6 +74,7 @@ export default function Profile() {
     if (interval >= 1) return interval + "m ago";
     return Math.floor(seconds) + "s ago";
   };
+
 
   return (
     <div style={{ padding: "80px 24px 40px 24px", color: "var(--text-color)", maxWidth: "1600px", margin: "0 auto" }}>
@@ -135,13 +143,44 @@ export default function Profile() {
         {/* Mini Stats Card */}
         <GlassCard>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px", height: "100%", alignContent: "center" }}>
-            <GlowStat icon="⚡" value={stats.xp ?? 0} label="Total XP" glow="#f59e0b" />
-            <GlowStat icon="🔥" value={`${stats.streak ?? 0}d`} label="Current Streak" glow="#ef4444" />
-            <GlowStat icon="🏆" value={stats.maxStreak ?? 0} label="Max Streak" glow="#a855f7" />
-            <GlowStat icon="✅" value={stats.totalSolved ?? 0} label="Solved" glow="#22c55e" />
+            <GlowStat icon="⚡" value={stats.xp ?? 0}              label="Total XP"      glow="#f59e0b" />
+            <GlowStat icon="🔥" value={`${stats.streak ?? 0}d`}   label="Current Streak" glow="#ef4444" />
+            <GlowStat icon="🏆" value={stats.maxStreak ?? 0}       label="Max Streak"    glow="#a855f7" />
+            <GlowStat icon="✅" value={stats.totalSolved ?? 0}     label="Solved"        glow="#22c55e" />
           </div>
         </GlassCard>
       </div>
+
+      {/* ═══════ Performance Card ═══════ */}
+      <GlassCard style={{ marginBottom: "24px" }}>
+        <h3 style={{ fontSize: "16px", fontWeight: "600", marginBottom: "16px", color: "#e2e8f0" }}>
+          ⚡ Performance
+        </h3>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "12px" }}>
+          {/* Rank Score */}
+          <div style={{
+            textAlign: "center", padding: "16px 8px",
+            background: "rgba(99,102,241,0.08)", border: "1px solid rgba(99,102,241,0.2)",
+            borderRadius: "12px",
+          }}>
+            <div style={{ fontSize: "11px", color: "#94a3b8", fontWeight: "500", marginBottom: "6px" }}>Rank Score</div>
+            <div style={{
+              fontSize: "26px", fontWeight: "800",
+              background: "linear-gradient(135deg, #6366f1, #a855f7)",
+              WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
+            }}>{(stats.rankScore ?? 0).toFixed(1)}</div>
+            {ranks?.scoreRank && (
+              <div style={{ fontSize: "11px", color: "#64748b", marginTop: "4px" }}>#{ranks.scoreRank} globally</div>
+            )}
+          </div>
+          {/* Avg Easy */}
+          <AvgTimeCard label="Avg Easy" time={fmtSecs(stats.avgEasyTime)} color="#22c55e" />
+          {/* Avg Medium */}
+          <AvgTimeCard label="Avg Medium" time={fmtSecs(stats.avgMediumTime)} color="#f59e0b" />
+          {/* Avg Hard */}
+          <AvgTimeCard label="Avg Hard" time={fmtSecs(stats.avgHardTime)} color="#ef4444" />
+        </div>
+      </GlassCard>
 
       {/* ═══════ Heatmap ═══════ */}
       <GlassCard style={{ marginBottom: "24px" }}>
@@ -153,11 +192,12 @@ export default function Profile() {
         <h3 style={{ fontSize: "16px", fontWeight: "600", marginBottom: "16px", color: "#e2e8f0" }}>
           🏅 Rank Breakdown
         </h3>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "12px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: "12px" }}>
           <RankBadge label="Overall" rank={ranks?.overallRank} color="#6366f1" />
-          <RankBadge label="Easy" rank={ranks?.easyRank} color="#22c55e" />
-          <RankBadge label="Medium" rank={ranks?.mediumRank} color="#f59e0b" />
-          <RankBadge label="Hard" rank={ranks?.hardRank} color="#ef4444" />
+          <RankBadge label="Easy"    rank={ranks?.easyRank}    color="#22c55e" />
+          <RankBadge label="Medium"  rank={ranks?.mediumRank}  color="#f59e0b" />
+          <RankBadge label="Hard"    rank={ranks?.hardRank}    color="#ef4444" />
+          <RankBadge label="Score"   rank={ranks?.scoreRank}   color="#a855f7" />
         </div>
       </GlassCard>
 
@@ -442,6 +482,20 @@ function Heatmap({ solvedProblems, maxStreak }) {
         ))}
         <span style={{ fontSize: "11px", color: "#64748b", marginLeft: "4px" }}>More</span>
       </div>
+    </div>
+  );
+}
+
+function AvgTimeCard({ label, time, color }) {
+  return (
+    <div style={{
+      textAlign: "center", padding: "16px 8px",
+      background: `${color}08`, border: `1px solid ${color}20`,
+      borderRadius: "12px",
+    }}>
+      <div style={{ fontSize: "11px", color: "#94a3b8", fontWeight: "500", marginBottom: "6px" }}>{label}</div>
+      <div style={{ fontSize: "22px", fontWeight: "800", color }}>{time}</div>
+      <div style={{ fontSize: "11px", color: "#64748b", marginTop: "4px" }}>avg solve time</div>
     </div>
   );
 }
