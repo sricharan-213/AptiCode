@@ -1,46 +1,143 @@
-:root {
-  --bg-color: #1a1a1a;
-  --text-color: #eff1f6e6;
-  --nav-bg: #282828;
-  --nav-border: #3e3e3e;
-  --card-bg: #262626;
-  --card-border: #333;
-  --primary: #ffa116;
-  --accent: #3b82f6;
-  --accent-secondary: #7c3aed;
-  --danger: #f87171;
-  --success: #22c55e;
-  --warning: #f59e0b;
-  --muted-text: #9ca3af;
-  --input-bg: #1a1a1a;
-  --row-hover: #1f2937;
+/* ═══════════════════════════════════════════════════
+   APTICODE — PREMIUM DESIGN SYSTEM
+   Dark mode default, LeetCode/GitHub quality
+═══════════════════════════════════════════════════ */
 
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* ─── DARK MODE (default) ───────────────────────── */
+:root {
+  /* Backgrounds */
+  --bg:              #0b1220;
+  --bg-secondary:    #0f172a;
+  --nav-bg:          #111827;
+  --card-bg:         #111827;
+  --card-bg-hover:   #1a2235;
+  --input-bg:        #0f172a;
+  --row-hover:       #1a2235;
+
+  /* Borders */
+  --border:          #1f2937;
+  --border-hover:    #374151;
+  --nav-border:      #1f2937;
+  --card-border:     #1f2937;
+
+  /* Text */
+  --text-primary:    #f9fafb;
+  --text-secondary:  #9ca3af;
+  --text-muted:      #6b7280;
+  --text-color:      #f1f5f9;
+  --muted-text:      #9ca3af;
+
+  /* Brand */
+  --primary:         #ffa116;
+  --primary-hover:   #ffb347;
+  --accent:          #3b82f6;
+  --accent-hover:    #60a5fa;
+  --accent-secondary:#7c3aed;
+
+  /* Semantic */
+  --success:         #22c55e;
+  --warning:         #f59e0b;
+  --danger:          #f87171;
+  --danger-hover:    #ef4444;
+  --info:            #38bdf8;
+
+  /* Glows (dark-mode only) */
+  --glow-accent:     rgba(59, 130, 246, 0.15);
+  --glow-primary:    rgba(255, 161, 22, 0.12);
+  --glow-success:    rgba(34, 197, 94, 0.12);
+
+  /* Card shadow */
+  --card-shadow:     0 1px 3px rgba(0,0,0,0.3), 0 4px 16px rgba(0,0,0,0.2);
+  --card-shadow-lg:  0 4px 24px rgba(0,0,0,0.4);
+
+  /* Profile header */
+  --profile-header-bg: linear-gradient(135deg, #0f172a 0%, #111827 50%, #0f172a 100%);
+  --profile-header-border: #1f2937;
+  --profile-glow: 0 0 40px rgba(99,102,241,0.08);
+
+  /* Heatmap */
+  --heatmap-empty: rgba(255,255,255,0.05);
+
+  /* Typography */
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   line-height: 1.6;
   font-weight: 400;
   font-size: 16px;
-
   color-scheme: dark;
   color: var(--text-color);
-  background-color: var(--bg-color);
-
+  background-color: var(--bg);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* ─── LIGHT MODE ────────────────────────────────── */
 [data-theme="light"] {
-  --bg-color: #f8f9fa;
-  --text-color: #1f2937;
-  --nav-bg: #ffffff;
-  --nav-border: #e5e7eb;
-  --card-bg: #ffffff;
-  --card-border: #e5e7eb;
-  --muted-text: #6b7280;
-  --input-bg: #f3f4f6;
-  --row-hover: #f9fafb;
+  /* Backgrounds */
+  --bg:              #f8fafc;
+  --bg-secondary:    #f1f5f9;
+  --nav-bg:          #ffffff;
+  --card-bg:         #ffffff;
+  --card-bg-hover:   #f8fafc;
+  --input-bg:        #f1f5f9;
+  --row-hover:       #f8fafc;
+
+  /* Borders */
+  --border:          #e2e8f0;
+  --border-hover:    #cbd5e1;
+  --nav-border:      #e5e7eb;
+  --card-border:     #e2e8f0;
+
+  /* Text */
+  --text-primary:    #0f172a;
+  --text-secondary:  #475569;
+  --text-muted:      #94a3b8;
+  --text-color:      #1e293b;
+  --muted-text:      #64748b;
+
+  /* Brand — same accent colors, they work in both modes */
+  --primary:         #f59e0b;
+  --primary-hover:   #d97706;
+  --accent:          #3b82f6;
+  --accent-hover:    #2563eb;
+  --accent-secondary:#7c3aed;
+
+  /* Semantic */
+  --success:         #16a34a;
+  --warning:         #d97706;
+  --danger:          #dc2626;
+  --danger-hover:    #b91c1c;
+  --info:            #0284c7;
+
+  /* Glows — none in light mode, use shadows instead */
+  --glow-accent:     transparent;
+  --glow-primary:    transparent;
+  --glow-success:    transparent;
+
+  /* Card shadow — soft, elevated look */
+  --card-shadow:     0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+  --card-shadow-lg:  0 4px 24px rgba(0,0,0,0.08);
+
+  /* Profile header — clean card, no dark gradient */
+  --profile-header-bg: linear-gradient(135deg, #f8fafc 0%, #ffffff 50%, #f8fafc 100%);
+  --profile-header-border: #e2e8f0;
+  --profile-glow: none;
+
+  /* Heatmap */
+  --heatmap-empty: rgba(0,0,0,0.06);
+
   color-scheme: light;
+  color: var(--text-color);
+  background-color: var(--bg);
+}
+
+/* ─── GLOBAL RESET ──────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
 body {
@@ -48,9 +145,9 @@ body {
   padding: 0;
   width: 100%;
   min-height: 100vh;
-  background-color: var(--bg-color);
+  background-color: var(--bg);
   color: var(--text-color);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 #root {
@@ -67,4 +164,19 @@ a {
 
 button {
   cursor: pointer;
+  font-family: inherit;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+p {
+  margin: 0;
+}
+
+/* ─── UTILITY ───────────────────────────────────── */
+.theme-transition {
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
 }

@@ -26,7 +26,7 @@ export default function Profile() {
 
   if (loading) {
     return (
-      <div style={{ padding: "100px 24px", color: "#9ca3af", textAlign: "center" }}>
+      <div style={{ padding: "100px 24px", color: "var(--muted-text)", textAlign: "center" }}>
         Loading profile...
       </div>
     );
@@ -34,8 +34,8 @@ export default function Profile() {
 
   if (!userData) {
     return (
-      <div style={{ padding: "100px 24px", color: "#9ca3af", textAlign: "center" }}>
-        <h2 style={{ color: "white", marginBottom: "12px" }}>Not Logged In</h2>
+      <div style={{ padding: "100px 24px", color: "var(--muted-text)", textAlign: "center" }}>
+        <h2 style={{ color: "var(--text-primary)", marginBottom: "12px" }}>Not Logged In</h2>
         <p>Please log in to view your profile.</p>
       </div>
     );
@@ -81,37 +81,31 @@ export default function Profile() {
 
       {/* ═══════ Profile Header ═══════ */}
       <div style={{
-        background: "linear-gradient(135deg, #0f172a 0%, var(--nav-bg) 50%, #0f172a 100%)",
+        background: "var(--profile-header-bg)",
         borderRadius: "20px",
         padding: "32px 36px",
         marginBottom: "24px",
-        border: "1px solid var(--nav-border)",
+        border: "1px solid var(--profile-header-border)",
         display: "flex",
         alignItems: "center",
         gap: "24px",
         position: "relative",
         overflow: "hidden",
+        boxShadow: "var(--profile-glow)",
       }}>
-        {/* Decorative glow */}
+        {/* Decorative glow — only visible in dark mode via CSS var opacity */}
         <div style={{
           position: "absolute", top: "-40px", right: "-40px", width: "160px", height: "160px",
-          background: "radial-gradient(circle, rgba(99,102,241,0.15), transparent 70%)", borderRadius: "50%",
+          background: "var(--glow-accent)", borderRadius: "50%",
         }} />
-        <div style={{
-          width: "72px", height: "72px", borderRadius: "50%",
-          background: "linear-gradient(135deg, #6366f1, #a855f7)",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          fontSize: "28px", fontWeight: "800", color: "white",
-          boxShadow: "0 0 24px rgba(99,102,241,0.3)", flexShrink: 0,
-        }}>
-          {initials}
-        </div>
+        {/* Avatar */}
+        <ProfileAvatar name={userData.name} initials={initials} />
         <div style={{ flex: 1 }}>
-          <h1 style={{ margin: 0, fontSize: "26px", fontWeight: "700", color: "white" }}>{userData.name}</h1>
-          <p style={{ color: "rgba(255,255,255,0.7)", margin: "4px 0 0 0", fontSize: "14px" }}>{userData.email}</p>
+          <h1 style={{ margin: 0, fontSize: "26px", fontWeight: "700", color: "var(--text-primary)" }}>{userData.name}</h1>
+          <p style={{ color: "var(--muted-text)", margin: "4px 0 0 0", fontSize: "14px" }}>{userData.email}</p>
         </div>
         <div style={{ textAlign: "right" }}>
-          <div style={{ fontSize: "13px", color: "rgba(255,255,255,0.6)" }}>Overall Rank</div>
+          <div style={{ fontSize: "13px", color: "var(--muted-text)" }}>Overall Rank</div>
           <div style={{
             fontSize: "32px", fontWeight: "800",
             background: "linear-gradient(135deg, #f59e0b, #ef4444)",
@@ -153,24 +147,24 @@ export default function Profile() {
 
       {/* ═══════ Performance Card ═══════ */}
       <GlassCard style={{ marginBottom: "24px" }}>
-        <h3 style={{ fontSize: "16px", fontWeight: "600", marginBottom: "16px", color: "#e2e8f0" }}>
+        <h3 style={{ fontSize: "16px", fontWeight: "600", marginBottom: "16px", color: "var(--text-primary)" }}>
           ⚡ Performance
         </h3>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "12px" }}>
           {/* Rank Score */}
           <div style={{
             textAlign: "center", padding: "16px 8px",
-            background: "rgba(99,102,241,0.08)", border: "1px solid rgba(99,102,241,0.2)",
+            background: "rgba(99,102,241,0.08)", border: "1px solid rgba(99,102,241,0.15)",
             borderRadius: "12px",
           }}>
-            <div style={{ fontSize: "11px", color: "#94a3b8", fontWeight: "500", marginBottom: "6px" }}>Rank Score</div>
+            <div style={{ fontSize: "11px", color: "var(--muted-text)", fontWeight: "500", marginBottom: "6px" }}>Rank Score</div>
             <div style={{
               fontSize: "26px", fontWeight: "800",
               background: "linear-gradient(135deg, #6366f1, #a855f7)",
               WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
             }}>{(stats.rankScore ?? 0).toFixed(1)}</div>
             {ranks?.scoreRank && (
-              <div style={{ fontSize: "11px", color: "#64748b", marginTop: "4px" }}>#{ranks.scoreRank} globally</div>
+              <div style={{ fontSize: "11px", color: "var(--muted-text)", marginTop: "4px" }}>#{ranks.scoreRank} globally</div>
             )}
           </div>
           {/* Avg Easy */}
@@ -189,7 +183,7 @@ export default function Profile() {
 
       {/* ═══════ Rank Badges ═══════ */}
       <GlassCard style={{ marginBottom: "24px" }}>
-        <h3 style={{ fontSize: "16px", fontWeight: "600", marginBottom: "16px", color: "#e2e8f0" }}>
+        <h3 style={{ fontSize: "16px", fontWeight: "600", marginBottom: "16px", color: "var(--text-primary)" }}>
           🏅 Rank Breakdown
         </h3>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: "12px" }}>
@@ -203,7 +197,7 @@ export default function Profile() {
 
       {/* ═══════ Solved Problems List ═══════ */}
       <GlassCard>
-        <h3 style={{ fontSize: "16px", fontWeight: "600", marginBottom: "16px", color: "#e2e8f0" }}>
+        <h3 style={{ fontSize: "16px", fontWeight: "600", marginBottom: "16px", color: "var(--text-primary)" }}>
           ✅ Solved Problems ({solvedProblems.length})
         </h3>
         {solvedProblems.length > 0 ? (
@@ -211,15 +205,15 @@ export default function Profile() {
             {solvedProblems.map((sp, i) => (
               <div key={i} style={{
                 display: "flex", justifyContent: "space-between", alignItems: "center",
-                padding: "10px 14px", background: "rgba(255,255,255,0.03)", borderRadius: "8px",
-                border: "1px solid rgba(255,255,255,0.05)",
+                padding: "10px 14px", background: "var(--row-hover)", borderRadius: "8px",
+                border: "1px solid var(--border)",
               }}>
-                <span style={{ color: "#22c55e", marginRight: "10px", fontSize: "13px" }}>✓</span>
+                <span style={{ color: "var(--success)", marginRight: "10px", fontSize: "13px" }}>✓</span>
                 <div style={{ flex: 1, display: "flex", justifyContent: "space-between", marginRight: "20px" }}>
-                  <span style={{ fontSize: "14px", color: "#cbd5e1", fontWeight: "500" }}>
+                  <span style={{ fontSize: "14px", color: "var(--text-primary)", fontWeight: "500" }}>
                     {sp.problemId?.title || "Unknown Problem"}
                   </span>
-                  <span style={{ fontSize: "12px", color: "#64748b" }}>
+                  <span style={{ fontSize: "12px", color: "var(--muted-text)" }}>
                     {formatTimeAgo(sp.solvedAt)}
                   </span>
                 </div>
@@ -235,7 +229,7 @@ export default function Profile() {
             ))}
           </div>
         ) : (
-          <p style={{ color: "#64748b", fontSize: "14px" }}>No problems solved yet. Start solving!</p>
+          <p style={{ color: "var(--muted-text)", fontSize: "14px" }}>No problems solved yet. Start solving!</p>
         )}
       </GlassCard>
     </div>
@@ -245,16 +239,34 @@ export default function Profile() {
 /* ═══════════════════════════════════
    🔹 Glass Card Wrapper
 ═══════════════════════════════════ */
+/* ─── ProfileAvatar ─────────────────────────────── */
+function ProfileAvatar({ name, initials }) {
+  const hue = name
+    ? [...name].reduce((acc, c) => acc + c.charCodeAt(0), 0) % 360
+    : 250;
+  return (
+    <div style={{
+      width: "72px", height: "72px", borderRadius: "50%",
+      background: `hsl(${hue}, 65%, 52%)`,
+      display: "flex", alignItems: "center", justifyContent: "center",
+      fontSize: "28px", fontWeight: "800", color: "white",
+      flexShrink: 0, userSelect: "none",
+      boxShadow: "var(--profile-glow)",
+    }}>
+      {initials}
+    </div>
+  );
+}
+
 function GlassCard({ children, style }) {
   return (
     <div style={{
       background: "var(--card-bg)",
-      backdropFilter: "blur(12px)",
-      WebkitBackdropFilter: "blur(12px)",
       borderRadius: "16px",
       padding: "24px",
       border: "1px solid var(--card-border)",
-      boxShadow: "0 4px 30px rgba(0,0,0,0.05)",
+      boxShadow: "var(--card-shadow)",
+      transition: "background-color 0.25s ease, border-color 0.25s ease",
       ...style,
     }}>
       {children}
@@ -282,7 +294,7 @@ function DonutChart({ total, easy, medium, hard }) {
   return (
     <div style={{ position: "relative", width: size, height: size, flexShrink: 0 }}>
       <svg width={size} height={size} style={{ transform: "rotate(-90deg)" }}>
-        <circle cx={size / 2} cy={size / 2} r={radius} fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth={strokeWidth} />
+        <circle cx={size / 2} cy={size / 2} r={radius} fill="none" stroke="var(--border)" strokeWidth={strokeWidth} />
         {segments.map((seg, i) => (
           <circle
             key={i}
@@ -309,12 +321,12 @@ function DonutChart({ total, easy, medium, hard }) {
 function DiffBadge({ label, val, color, rank }) {
   return (
     <div style={{
-      padding: "8px 16px", background: "rgba(0,0,0,0.03)", border: `1px solid ${color}44`,
+      padding: "8px 16px", background: "var(--row-hover)", border: `1px solid ${color}44`,
       borderRadius: "10px", minWidth: "110px", display: "flex", justifyContent: "space-between", alignItems: "center",
     }}>
       <div>
         <div style={{ fontSize: "11px", color, fontWeight: "700", letterSpacing: "0.5px" }}>{label}</div>
-        <div style={{ fontSize: "20px", fontWeight: "800", color: "var(--text-color)" }}>{val}</div>
+        <div style={{ fontSize: "20px", fontWeight: "800", color: "var(--text-primary)" }}>{val}</div>
       </div>
       {rank && <div style={{ fontSize: "11px", color: "var(--muted-text)" }}>#{rank}</div>}
     </div>
@@ -338,10 +350,10 @@ function RankBadge({ label, rank, color }) {
       background: `${color}08`, border: `1px solid ${color}20`,
       borderRadius: "12px",
     }}>
-      <div style={{ fontSize: "24px", fontWeight: "800", color, marginBottom: "4px", filter: `drop-shadow(0 0 6px ${color}44)` }}>
+      <div style={{ fontSize: "24px", fontWeight: "800", color, marginBottom: "4px" }}>
         #{rank || "—"}
       </div>
-      <div style={{ fontSize: "12px", color: "#94a3b8", fontWeight: "500" }}>{label}</div>
+      <div style={{ fontSize: "12px", color: "var(--muted-text)", fontWeight: "500" }}>{label}</div>
     </div>
   );
 }
@@ -411,11 +423,11 @@ function Heatmap({ solvedProblems, maxStreak }) {
   }
 
   const getColor = (c) => {
-    if (c === 0) return "rgba(255,255,255,0.04)";
-    if (c === 1) return "#0e4429";
-    if (c === 2) return "#006d32";
-    if (c <= 4) return "#26a641";
-    return "#39d353";
+    if (c === 0) return "var(--heatmap-empty)";
+    if (c === 1) return "#155e2d";
+    if (c === 2) return "#16a34a";
+    if (c <= 4) return "#22c55e";
+    return "#4ade80";
   };
 
   const cs = 13, gap = 3;
@@ -424,17 +436,17 @@ function Heatmap({ solvedProblems, maxStreak }) {
     <div>
       {/* Header */}
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "14px", flexWrap: "wrap", gap: "8px" }}>
-        <div style={{ fontSize: "15px", fontWeight: "600" }}>
+        <div style={{ fontSize: "15px", fontWeight: "600", color: "var(--text-primary)" }}>
           <span style={{
             fontSize: "20px", fontWeight: "800",
-            background: "linear-gradient(90deg, #22c55e, #3b82f6)",
+            background: "linear-gradient(90deg, var(--success), var(--accent))",
             WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
           }}>{totalSubmissions}</span>
-          <span style={{ color: "#94a3b8", fontWeight: "400" }}> submissions in the past year</span>
+          <span style={{ color: "var(--muted-text)", fontWeight: "400" }}> submissions in the past year</span>
         </div>
-        <div style={{ display: "flex", gap: "20px", fontSize: "13px", color: "#64748b" }}>
-          <span>Active days: <strong style={{ color: "#e2e8f0" }}>{activeDaysSet.size}</strong></span>
-          <span>Max streak: <strong style={{ color: "#e2e8f0" }}>{maxStreak || calcMaxStreak}</strong></span>
+        <div style={{ display: "flex", gap: "20px", fontSize: "13px", color: "var(--muted-text)" }}>
+          <span>Active days: <strong style={{ color: "var(--text-primary)" }}>{activeDaysSet.size}</strong></span>
+          <span>Max streak: <strong style={{ color: "var(--text-primary)" }}>{maxStreak || calcMaxStreak}</strong></span>
         </div>
       </div>
 
@@ -444,7 +456,7 @@ function Heatmap({ solvedProblems, maxStreak }) {
           <div key={i} style={{
             position: "absolute",
             left: `${ml.weekIndex * (cs + gap)}px`,
-            fontSize: "11px", color: "#64748b",
+            fontSize: "11px", color: "var(--muted-text)",
           }}>
             {ml.label}
           </div>
@@ -476,11 +488,11 @@ function Heatmap({ solvedProblems, maxStreak }) {
 
       {/* Legend */}
       <div style={{ display: "flex", alignItems: "center", gap: "4px", marginTop: "10px", justifyContent: "flex-end" }}>
-        <span style={{ fontSize: "11px", color: "#64748b", marginRight: "4px" }}>Less</span>
-        {["rgba(255,255,255,0.04)", "#0e4429", "#006d32", "#26a641", "#39d353"].map((c, i) => (
+        <span style={{ fontSize: "11px", color: "var(--muted-text)", marginRight: "4px" }}>Less</span>
+        {["var(--heatmap-empty)", "#155e2d", "#16a34a", "#22c55e", "#4ade80"].map((c, i) => (
           <div key={i} style={{ width: "12px", height: "12px", borderRadius: "3px", backgroundColor: c }} />
         ))}
-        <span style={{ fontSize: "11px", color: "#64748b", marginLeft: "4px" }}>More</span>
+        <span style={{ fontSize: "11px", color: "var(--muted-text)", marginLeft: "4px" }}>More</span>
       </div>
     </div>
   );
@@ -490,12 +502,12 @@ function AvgTimeCard({ label, time, color }) {
   return (
     <div style={{
       textAlign: "center", padding: "16px 8px",
-      background: `${color}08`, border: `1px solid ${color}20`,
+      background: `${color}10`, border: `1px solid ${color}30`,
       borderRadius: "12px",
     }}>
-      <div style={{ fontSize: "11px", color: "#94a3b8", fontWeight: "500", marginBottom: "6px" }}>{label}</div>
+      <div style={{ fontSize: "11px", color: "var(--muted-text)", fontWeight: "500", marginBottom: "6px" }}>{label}</div>
       <div style={{ fontSize: "22px", fontWeight: "800", color }}>{time}</div>
-      <div style={{ fontSize: "11px", color: "#64748b", marginTop: "4px" }}>avg solve time</div>
+      <div style={{ fontSize: "11px", color: "var(--muted-text)", marginTop: "4px" }}>avg solve time</div>
     </div>
   );
 }

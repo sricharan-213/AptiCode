@@ -1,42 +1,34 @@
 import { useState, useEffect, useRef } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { Sun, Moon, User, LogOut, Settings, ChevronDown } from "lucide-react";
 
-/* ─── Avatar Component ─────────────────────────────────────────── */
-function Avatar({ user, onClick }) {
+/* ─── Avatar ────────────────────────────────────────────────────── */
+function Avatar({ user }) {
   const initial = user?.name ? user.name.charAt(0).toUpperCase() : "?";
 
+  // Deterministic hue from username so color is consistent
+  const hue = user?.name
+    ? [...user.name].reduce((acc, c) => acc + c.charCodeAt(0), 0) % 360
+    : 210;
+
   return (
-    <button
-      onClick={onClick}
-      title={user?.name}
+    <div
       style={{
-        width: "36px",
-        height: "36px",
+        width: "32px",
+        height: "32px",
         borderRadius: "50%",
-        border: "2px solid rgba(255,161,22,0.5)",
         background: user?.avatar
           ? "transparent"
-          : "linear-gradient(135deg, #ffa116 0%, #f59e0b 100%)",
+          : `hsl(${hue}, 70%, 52%)`,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        cursor: "pointer",
-        fontSize: "14px",
+        fontSize: "13px",
         fontWeight: "700",
-        color: "#1a1a1a",
+        color: "#fff",
         overflow: "hidden",
-        padding: 0,
-        transition: "box-shadow 0.2s ease, transform 0.15s ease",
-        boxShadow: "0 0 0 0 rgba(255,161,22,0.4)",
         flexShrink: 0,
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.boxShadow = "0 0 0 3px rgba(255,161,22,0.3)";
-        e.currentTarget.style.transform = "scale(1.05)";
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.boxShadow = "0 0 0 0 rgba(255,161,22,0.4)";
-        e.currentTarget.style.transform = "scale(1)";
+        userSelect: "none",
       }}
     >
       {user?.avatar ? (
@@ -46,45 +38,40 @@ function Avatar({ user, onClick }) {
           style={{ width: "100%", height: "100%", objectFit: "cover" }}
         />
       ) : (
-        <span style={{ lineHeight: 1, letterSpacing: "0.02em" }}>{initial}</span>
+        initial
       )}
-    </button>
+    </div>
   );
 }
 
-/* ─── Dropdown Menu ─────────────────────────────────────────────── */
+/* ─── Dropdown ──────────────────────────────────────────────────── */
 function DropdownMenu({ user, onNavigate, onLogout, isOpen }) {
   return (
     <div
       style={{
         position: "absolute",
-        top: "calc(100% + 10px)",
+        top: "calc(100% + 8px)",
         right: 0,
-        minWidth: "200px",
+        minWidth: "210px",
         backgroundColor: "var(--nav-bg)",
-        border: "1px solid var(--nav-border)",
+        border: "1px solid var(--border)",
         borderRadius: "12px",
-        boxShadow: "0 8px 32px rgba(0,0,0,0.35)",
+        boxShadow: "var(--card-shadow-lg)",
         overflow: "hidden",
         zIndex: 999,
         opacity: isOpen ? 1 : 0,
-        transform: isOpen ? "translateY(0) scale(1)" : "translateY(-8px) scale(0.97)",
+        transform: isOpen ? "translateY(0) scale(1)" : "translateY(-6px) scale(0.97)",
         pointerEvents: isOpen ? "all" : "none",
-        transition: "opacity 0.18s ease, transform 0.18s ease",
+        transition: "opacity 0.15s ease, transform 0.15s ease",
       }}
     >
-      {/* User Info Header */}
-      <div
-        style={{
-          padding: "14px 16px 12px",
-          borderBottom: "1px solid var(--nav-border)",
-        }}
-      >
+      {/* User info header */}
+      <div style={{ padding: "14px 16px 12px", borderBottom: "1px solid var(--border)" }}>
         <div
           style={{
             fontSize: "13px",
             fontWeight: "600",
-            color: "var(--text-color)",
+            color: "var(--text-primary)",
             whiteSpace: "nowrap",
             overflow: "hidden",
             textOverflow: "ellipsis",
@@ -94,7 +81,7 @@ function DropdownMenu({ user, onNavigate, onLogout, isOpen }) {
         </div>
         <div
           style={{
-            fontSize: "11px",
+            fontSize: "12px",
             color: "var(--muted-text)",
             marginTop: "2px",
             whiteSpace: "nowrap",
@@ -106,39 +93,20 @@ function DropdownMenu({ user, onNavigate, onLogout, isOpen }) {
         </div>
       </div>
 
-      {/* Menu Items */}
+      {/* Items */}
       <div style={{ padding: "6px" }}>
         {user?.role === "admin" && (
-          <DropdownItem
-            icon="⚙️"
-            label="Upload Problems"
-            onClick={() => onNavigate("/admin/upload")}
-          />
+          <DropItem icon={<Settings size={14} />} label="Upload Problems" onClick={() => onNavigate("/admin/upload")} />
         )}
-        <DropdownItem
-          icon="👤"
-          label="My Profile"
-          onClick={() => onNavigate("/profile")}
-        />
-        <div
-          style={{
-            height: "1px",
-            backgroundColor: "var(--nav-border)",
-            margin: "6px 0",
-          }}
-        />
-        <DropdownItem
-          icon="🚪"
-          label="Logout"
-          onClick={onLogout}
-          danger
-        />
+        <DropItem icon={<User size={14} />} label="My Profile" onClick={() => onNavigate("/profile")} />
+        <div style={{ height: "1px", backgroundColor: "var(--border)", margin: "4px 0" }} />
+        <DropItem icon={<LogOut size={14} />} label="Logout" onClick={onLogout} danger />
       </div>
     </div>
   );
 }
 
-function DropdownItem({ icon, label, onClick, danger = false }) {
+function DropItem({ icon, label, onClick, danger = false }) {
   const [hovered, setHovered] = useState(false);
   return (
     <button
@@ -148,29 +116,25 @@ function DropdownItem({ icon, label, onClick, danger = false }) {
       style={{
         display: "flex",
         alignItems: "center",
-        gap: "10px",
+        gap: "9px",
         width: "100%",
-        padding: "8px 10px",
+        padding: "7px 10px",
         background: hovered
-          ? danger
-            ? "rgba(248,113,113,0.1)"
-            : "var(--row-hover)"
+          ? danger ? "rgba(220,38,38,0.08)" : "var(--row-hover)"
           : "transparent",
         border: "none",
-        borderRadius: "8px",
+        borderRadius: "7px",
         cursor: "pointer",
         color: danger
-          ? hovered
-            ? "var(--danger)"
-            : "#f87171cc"
+          ? hovered ? "var(--danger-hover)" : "var(--danger)"
           : "var(--text-color)",
         fontSize: "13px",
         fontWeight: "500",
         textAlign: "left",
-        transition: "background 0.15s ease, color 0.15s ease",
+        transition: "background 0.12s ease, color 0.12s ease",
       }}
     >
-      <span style={{ fontSize: "15px", width: "20px", textAlign: "center" }}>{icon}</span>
+      <span style={{ opacity: 0.8, display: "flex" }}>{icon}</span>
       {label}
     </button>
   );
@@ -184,27 +148,22 @@ export default function Navbar() {
 
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [avatarHovered, setAvatarHovered] = useState(false);
 
-  // Apply theme
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
     localStorage.setItem("theme", theme);
   }, [theme]);
 
-  // Close dropdown on outside click
   useEffect(() => {
     function handleClickOutside(e) {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setDropdownOpen(false);
       }
     }
-    if (dropdownOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
+    if (dropdownOpen) document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [dropdownOpen]);
-
-  const toggleTheme = () => setTheme(theme === "dark" ? "light" : "dark");
 
   const handleLogout = () => {
     setDropdownOpen(false);
@@ -223,78 +182,96 @@ export default function Navbar() {
     <nav
       style={{
         position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
+        top: 0, left: 0, right: 0,
         height: "56px",
         backgroundColor: "var(--nav-bg)",
-        borderBottom: "1px solid var(--nav-border)",
-        color: "var(--text-color)",
+        borderBottom: "1px solid var(--border)",
         display: "flex",
         alignItems: "center",
-        padding: "0 24px",
+        padding: "0 20px",
         zIndex: 1000,
-        boxShadow: "0 1px 0 var(--nav-border)",
-        gap: "8px",
+        gap: "6px",
+        transition: "background-color 0.25s ease, border-color 0.25s ease",
       }}
     >
-      {/* ── Left: Logo ── */}
+      {/* ── Logo ── */}
       <div
+        onClick={() => navigate("/")}
         style={{
           display: "flex",
           alignItems: "center",
           gap: "8px",
           cursor: "pointer",
-          marginRight: "28px",
+          marginRight: "20px",
           flexShrink: 0,
         }}
-        onClick={() => navigate("/")}
       >
         <img
           src="/image.png"
-          alt="AptiCode Logo"
-          style={{ width: "30px", height: "30px", borderRadius: "6px" }}
+          alt="AptiCode"
+          style={{ width: "28px", height: "28px", borderRadius: "6px" }}
         />
-        <span
-          style={{
-            fontSize: "18px",
-            fontWeight: "700",
-            color: "var(--primary)",
-            letterSpacing: "-0.3px",
-          }}
-        >
+        <span style={{ fontSize: "17px", fontWeight: "700", color: "var(--primary)", letterSpacing: "-0.2px" }}>
           AptiCode
         </span>
       </div>
 
-      {/* ── Center: Nav Links ── */}
-      <div style={{ display: "flex", gap: "4px", height: "100%", alignItems: "center" }}>
-        <NavItem to="/" label="Explore" exact />
+      {/* ── Nav Links ── */}
+      <div style={{ display: "flex", height: "100%", alignItems: "center" }}>
+        <NavItem to="/" label="Explore" end />
         <NavItem to="/problems" label="Problems" />
         <NavItem to="/target" label="Target" />
       </div>
 
-      {/* ── Right Side ── */}
-      <div
-        style={{
-          marginLeft: "auto",
-          display: "flex",
-          alignItems: "center",
-          gap: "8px",
-        }}
-      >
-        {/* Theme Toggle */}
-        <IconButton
-          onClick={toggleTheme}
+      {/* ── Right ── */}
+      <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: "6px" }}>
+
+        {/* Theme toggle */}
+        <IconBtn
+          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
           title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
         >
-          {theme === "dark" ? "☀️" : "🌙"}
-        </IconButton>
+          {theme === "dark"
+            ? <Sun size={16} strokeWidth={2} />
+            : <Moon size={16} strokeWidth={2} />}
+        </IconBtn>
 
         {user ? (
-          /* ── Avatar + Dropdown ── */
-          <div ref={dropdownRef} style={{ position: "relative" }}>
-            <Avatar user={user} onClick={() => setDropdownOpen((o) => !o)} />
+          /* ── Avatar Dropdown ── */
+          <div
+            ref={dropdownRef}
+            style={{ position: "relative" }}
+          >
+            <button
+              onClick={() => setDropdownOpen((o) => !o)}
+              onMouseEnter={() => setAvatarHovered(true)}
+              onMouseLeave={() => setAvatarHovered(false)}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "6px",
+                background: avatarHovered ? "var(--row-hover)" : "transparent",
+                border: `1px solid ${avatarHovered || dropdownOpen ? "var(--border-hover)" : "var(--border)"}`,
+                borderRadius: "20px",
+                padding: "3px 8px 3px 4px",
+                cursor: "pointer",
+                transition: "background 0.15s ease, border-color 0.15s ease",
+              }}
+            >
+              <Avatar user={user} />
+              <span style={{ fontSize: "13px", fontWeight: "500", color: "var(--text-primary)", maxWidth: "100px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                {user.name?.split(" ")[0]}
+              </span>
+              <ChevronDown
+                size={13}
+                style={{
+                  color: "var(--muted-text)",
+                  transform: dropdownOpen ? "rotate(180deg)" : "rotate(0deg)",
+                  transition: "transform 0.2s ease",
+                }}
+              />
+            </button>
+
             <DropdownMenu
               user={user}
               isOpen={dropdownOpen}
@@ -303,17 +280,17 @@ export default function Navbar() {
             />
           </div>
         ) : (
-          /* ── Auth Links ── */
-          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          /* ── Auth ── */
+          <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
             <NavLink
               to="/login"
               style={({ isActive }) => ({
                 textDecoration: "none",
                 fontSize: "13px",
                 fontWeight: "500",
-                color: isActive ? "var(--primary)" : "var(--muted-text)",
-                padding: "6px 12px",
-                borderRadius: "8px",
+                color: isActive ? "var(--text-primary)" : "var(--muted-text)",
+                padding: "5px 12px",
+                borderRadius: "7px",
                 transition: "color 0.15s ease",
               })}
             >
@@ -321,24 +298,18 @@ export default function Navbar() {
             </NavLink>
             <NavLink
               to="/signup"
-              style={({ isActive }) => ({
+              style={{
                 textDecoration: "none",
                 fontSize: "13px",
                 fontWeight: "600",
-                color: isActive ? "#1a1a1a" : "#1a1a1a",
+                color: "#fff",
                 backgroundColor: "var(--primary)",
                 padding: "6px 14px",
-                borderRadius: "8px",
-                transition: "opacity 0.15s ease, transform 0.15s ease",
-              })}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.opacity = "0.88";
-                e.currentTarget.style.transform = "scale(1.03)";
+                borderRadius: "7px",
+                transition: "opacity 0.15s ease",
               }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.opacity = "1";
-                e.currentTarget.style.transform = "scale(1)";
-              }}
+              onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.85")}
+              onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
             >
               Sign up
             </NavLink>
@@ -349,15 +320,15 @@ export default function Navbar() {
   );
 }
 
-/* ─── Reusable Sub-components ───────────────────────────────────── */
-function NavItem({ to, label, exact }) {
+/* ─── Sub-components ─────────────────────────────────────────────── */
+function NavItem({ to, label, end }) {
   return (
     <NavLink
       to={to}
-      end={exact}
+      end={end}
       style={({ isActive }) => ({
         textDecoration: "none",
-        color: isActive ? "var(--text-color)" : "var(--muted-text)",
+        color: isActive ? "var(--text-primary)" : "var(--muted-text)",
         fontWeight: isActive ? "600" : "400",
         fontSize: "14px",
         display: "flex",
@@ -365,24 +336,15 @@ function NavItem({ to, label, exact }) {
         height: "100%",
         padding: "0 10px",
         borderBottom: isActive ? "2px solid var(--primary)" : "2px solid transparent",
-        transition: "color 0.18s ease, border-color 0.18s ease",
-        letterSpacing: "0.01em",
+        transition: "color 0.15s ease, border-color 0.15s ease",
       })}
-      onMouseEnter={(e) => {
-        if (e.currentTarget.style.color !== "var(--text-color)") {
-          e.currentTarget.style.color = "var(--text-color)";
-        }
-      }}
-      onMouseLeave={(e) => {
-        // NavLink re-applies its own style, no manual reset needed
-      }}
     >
       {label}
     </NavLink>
   );
 }
 
-function IconButton({ onClick, title, children }) {
+function IconBtn({ onClick, title, children }) {
   const [hovered, setHovered] = useState(false);
   return (
     <button
@@ -391,18 +353,17 @@ function IconButton({ onClick, title, children }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        background: hovered ? "var(--row-hover)" : "none",
-        border: "1px solid var(--nav-border)",
+        background: hovered ? "var(--row-hover)" : "transparent",
+        border: "1px solid var(--border)",
         borderRadius: "8px",
-        color: "var(--text-color)",
+        color: "var(--text-secondary)",
         width: "34px",
         height: "34px",
-        fontSize: "16px",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         cursor: "pointer",
-        transition: "background 0.15s ease",
+        transition: "background 0.15s ease, color 0.15s ease",
         flexShrink: 0,
       }}
     >
