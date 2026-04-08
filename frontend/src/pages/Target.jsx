@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 export default function Target() {
+  const navigate = useNavigate();
   return (
     <div style={{ padding: "80px 24px 24px 24px", color: "white", maxWidth: "1000px", margin: "0 auto" }}>
       <h1 style={{ marginBottom: "8px" }}>Your Targets</h1>
@@ -10,6 +13,7 @@ export default function Target() {
           desc="Common Admission Test for MBA"
           color="#2563eb"
           status="Active"
+          onContinue={() => navigate("/mock-cat/exam")}
         />
         <ExamCard
           title="SSC CGL"
@@ -34,7 +38,7 @@ export default function Target() {
   );
 }
 
-function ExamCard({ title, desc, color, status }) {
+function ExamCard({ title, desc, color, status, onContinue }) {
   return (
     <div style={{
       background: "#262626",
@@ -73,15 +77,19 @@ function ExamCard({ title, desc, color, status }) {
       <h3 style={{ fontSize: "20px", marginBottom: "8px" }}>{title}</h3>
       <p style={{ color: "#9ca3af", fontSize: "14px", marginBottom: "24px", lineHeight: "1.5" }}>{desc}</p>
 
-      <div style={{
-        display: "inline-block",
-        padding: "6px 16px",
-        borderRadius: "20px",
-        backgroundColor: status === "Active" ? color : "#333",
-        color: status === "Active" ? "white" : "#9ca3af",
-        fontSize: "13px",
-        fontWeight: "600"
-      }}>
+      <div
+        onClick={status === "Active" && onContinue ? onContinue : undefined}
+        style={{
+          display: "inline-block",
+          padding: "6px 16px",
+          borderRadius: "20px",
+          backgroundColor: status === "Active" ? color : "#333",
+          color: status === "Active" ? "white" : "#9ca3af",
+          fontSize: "13px",
+          fontWeight: "600",
+          cursor: status === "Active" ? "pointer" : "default"
+        }}
+      >
         {status === "Active" ? "Continue Prep" : status === "Locked" ? "Premium Only" : "Start Track"}
       </div>
     </div>

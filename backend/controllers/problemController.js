@@ -3,7 +3,7 @@ import Problem from "../models/Problem.js";
 // GET all problems
 export const getAllProblems = async (req, res) => {
     try {
-        const problems = await Problem.find();
+        const problems = await Problem.find().sort({ number: 1 });
         res.json(problems);
     } catch (error) {
         res.status(500).json({ message: "Error fetching problems" });
@@ -28,11 +28,15 @@ export const getProblemById = async (req, res) => {
 // POST create a new problem (admin only)
 export const createProblem = async (req, res) => {
     try {
-        const newProblem = new Problem(req.body);
+        // Auto-assign next permanent number (like LeetCode)
+        const last = await Problem.findOne().sort({ number: -1 });
+        const nextNumber = last && last.number ? last.number + 1 : 1;
+
+        const newProblem = new Problem({ ...req.body, number: nextNumber });
         const savedProblem = await newProblem.save();
         res.status(201).json(savedProblem);
     } catch (error) {
-        res.status(400).json({ message: "Error creating problem" });
+        res.status(400).json({ message: "Error creating problem", error });
     }
 };
 

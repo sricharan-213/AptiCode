@@ -6,6 +6,7 @@ dotenv.config();
 import problemRoutes from "./routes/problemRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import mockRoutes from "./routes/mockRoutes.js";
 
 
 const app = express();
@@ -17,6 +18,7 @@ app.use(express.json());
 app.use("/api/problems", problemRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/mock", mockRoutes);
 app.get("/", (req, res) => {
   res.send("AptiCode Backend Running 🚀");
 });
