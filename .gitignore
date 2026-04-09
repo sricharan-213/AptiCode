@@ -61,8 +61,4 @@ frontend/.vite/
 coverage/
 .cache/
 
-# ===========================
-# 🔒 Private Question Banks (never expose publicly)
-# ===========================
-backend/scripts/cat_sample_questions.json
-backend/scripts/*.questions.json
+

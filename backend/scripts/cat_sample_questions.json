@@ -1,0 +1,339 @@
+[
+  {
+    "title": "Reading Comprehension: Technology and Attention",
+    "description": "A passage argues that constant digital notifications fragment human attention and make sustained concentration harder, even when people feel productive.",
+    "options": [
+      "Technology always improves human focus",
+      "Technology can reduce sustained attention by increasing interruptions",
+      "Digital tools have no effect on attention",
+      "Only social media affects concentration"
+    ],
+    "correctOption": "Technology can reduce sustained attention by increasing interruptions",
+    "difficulty": "Medium",
+    "topic": "Reading Comprehension",
+    "type": "CAT_SAMPLE",
+    "section": "VARC"
+  },
+  {
+    "title": "Vocabulary: Obsolete",
+    "description": "Choose the word closest in meaning to 'obsolete' as used in formal writing.",
+    "options": ["Modern", "Outdated", "Useful", "Active"],
+    "correctOption": "Outdated",
+    "difficulty": "Easy",
+    "topic": "Vocabulary",
+    "type": "CAT_SAMPLE",
+    "section": "VARC"
+  },
+  {
+    "title": "Grammar: Preposition Usage",
+    "description": "Choose the correct preposition to complete the sentence: 'He was accused ___ stealing the documents.'",
+    "options": ["for", "of", "with", "by"],
+    "correctOption": "of",
+    "difficulty": "Easy",
+    "topic": "Grammar",
+    "type": "CAT_SAMPLE",
+    "section": "VARC"
+  },
+  {
+    "title": "Para Jumbles: Sequence of Events",
+    "description": "Arrange the sentences into a logically coherent paragraph: A. He opened the door. B. He heard a knock. C. He was reading a book. D. A stranger stood outside.",
+    "options": [
+      "C-B-A-D",
+      "B-C-A-D",
+      "A-B-C-D",
+      "D-A-B-C"
+    ],
+    "correctOption": "C-B-A-D",
+    "difficulty": "Medium",
+    "topic": "Para Jumbles",
+    "type": "CAT_SAMPLE",
+    "section": "VARC"
+  },
+  {
+    "title": "Tone of Passage",
+    "description": "A passage critically examines how consumer culture creates unrealistic expectations and endless dissatisfaction. What is the likely tone of the passage?",
+    "options": ["Critical", "Neutral", "Sarcastic", "Optimistic"],
+    "correctOption": "Critical",
+    "difficulty": "Medium",
+    "topic": "Tone",
+    "type": "CAT_SAMPLE",
+    "section": "VARC"
+  },
+  {
+    "title": "Antonym: Scarce",
+    "description": "Select the word that is opposite in meaning to 'scarce'.",
+    "options": ["Rare", "Abundant", "Tiny", "Limited"],
+    "correctOption": "Abundant",
+    "difficulty": "Easy",
+    "topic": "Vocabulary",
+    "type": "CAT_SAMPLE",
+    "section": "VARC"
+  },
+  {
+    "title": "Sentence Correction",
+    "description": "Choose the grammatically correct version of the sentence: 'He don't know the answer.'",
+    "options": [
+      "He don't knows the answer.",
+      "He doesn't know the answer.",
+      "He not know the answer.",
+      "He didn't knew the answer."
+    ],
+    "correctOption": "He doesn't know the answer.",
+    "difficulty": "Easy",
+    "topic": "Grammar",
+    "type": "CAT_SAMPLE",
+    "section": "VARC"
+  },
+  {
+    "title": "Logical Inference",
+    "description": "Consider the statements: 'All cats are animals' and 'Some animals are wild.' Which conclusion is logically valid?",
+    "options": [
+      "All cats are wild",
+      "Some cats may be wild",
+      "No cats are wild",
+      "All wild animals are cats"
+    ],
+    "correctOption": "Some cats may be wild",
+    "difficulty": "Medium",
+    "topic": "Logical Reasoning",
+    "type": "CAT_SAMPLE",
+    "section": "VARC"
+  },
+  {
+    "title": "Idiom Meaning",
+    "description": "What does the idiom 'break the ice' mean in everyday usage?",
+    "options": [
+      "To create tension",
+      "To start a conversation and ease discomfort",
+      "To end a friendship",
+      "To make things colder"
+    ],
+    "correctOption": "To start a conversation and ease discomfort",
+    "difficulty": "Easy",
+    "topic": "Idioms",
+    "type": "CAT_SAMPLE",
+    "section": "VARC"
+  },
+  {
+    "title": "Passage Summary",
+    "description": "A passage discusses how remote work has improved flexibility but also increased the need for self-discipline and clear boundaries. Which summary best captures the idea?",
+    "options": [
+      "Remote work solves every workplace problem",
+      "Remote work offers benefits but also requires stronger personal discipline",
+      "Flexibility is the only issue in modern jobs",
+      "People should avoid remote work entirely"
+    ],
+    "correctOption": "Remote work offers benefits but also requires stronger personal discipline",
+    "difficulty": "Medium",
+    "topic": "Reading Comprehension",
+    "type": "CAT_SAMPLE",
+    "section": "VARC"
+  },
+
+  {
+    "title": "Linear Arrangement",
+    "description": "Five people A, B, C, D and E are seated in a row. A is to the left of B. C is at the extreme right. D is between A and C. Who is in the middle?",
+    "options": ["A", "B", "D", "E"],
+    "correctOption": "D",
+    "difficulty": "Medium",
+    "topic": "Seating Arrangement",
+    "type": "CAT_SAMPLE",
+    "section": "DILR"
+  },
+  {
+    "title": "Data Interpretation: Average Sales",
+    "description": "A company's monthly sales for four months are 10, 20, 30 and 40 units respectively. What is the average monthly sales?",
+    "options": ["20", "22", "25", "30"],
+    "correctOption": "25",
+    "difficulty": "Easy",
+    "topic": "Data Interpretation",
+    "type": "CAT_SAMPLE",
+    "section": "DILR"
+  },
+  {
+    "title": "Circular Arrangement",
+    "description": "Six friends are seated around a circle. A sits opposite B. C sits immediately to the right of A. Which person is adjacent to A on the other side?",
+    "options": ["B", "C", "D", "Cannot be determined"],
+    "correctOption": "Cannot be determined",
+    "difficulty": "Hard",
+    "topic": "Seating Arrangement",
+    "type": "CAT_SAMPLE",
+    "section": "DILR"
+  },
+  {
+    "title": "Coding-Decoding",
+    "description": "In a certain code, CAT is written as DBU. Using the same rule, how is DOG written?",
+    "options": ["EPH", "EOG", "FPI", "EPI"],
+    "correctOption": "EPH",
+    "difficulty": "Easy",
+    "topic": "Coding-Decoding",
+    "type": "CAT_SAMPLE",
+    "section": "DILR"
+  },
+  {
+    "title": "Table Interpretation: Profit",
+    "description": "A trader invests ₹100 and earns a profit of 20%. What is the total selling price?",
+    "options": ["₹110", "₹120", "₹130", "₹140"],
+    "correctOption": "₹120",
+    "difficulty": "Easy",
+    "topic": "Data Interpretation",
+    "type": "CAT_SAMPLE",
+    "section": "DILR"
+  },
+  {
+    "title": "Blood Relation",
+    "description": "A is the father of B. B is the mother of C. How is A related to C?",
+    "options": ["Father", "Grandfather", "Uncle", "Brother"],
+    "correctOption": "Grandfather",
+    "difficulty": "Easy",
+    "topic": "Blood Relations",
+    "type": "CAT_SAMPLE",
+    "section": "DILR"
+  },
+  {
+    "title": "Logic Puzzle: Wrong Labels",
+    "description": "Three boxes are incorrectly labeled 'Apples', 'Oranges', and 'Mixed'. By opening only one box, how can you identify the correct labels?",
+    "options": [
+      "Open the box labeled 'Mixed' first",
+      "Open the box labeled 'Apples' first",
+      "Open any box at random",
+      "It is impossible to solve"
+    ],
+    "correctOption": "Open the box labeled 'Mixed' first",
+    "difficulty": "Hard",
+    "topic": "Logical Reasoning",
+    "type": "CAT_SAMPLE",
+    "section": "DILR"
+  },
+  {
+    "title": "Pie Chart Interpretation",
+    "description": "A sector in a pie chart represents 25% of the total 200 units. What is the value represented by that sector?",
+    "options": ["25", "40", "50", "60"],
+    "correctOption": "50",
+    "difficulty": "Easy",
+    "topic": "Data Interpretation",
+    "type": "CAT_SAMPLE",
+    "section": "DILR"
+  },
+  {
+    "title": "Direction Sense",
+    "description": "A person starts facing North, turns right, then turns right again. Which direction is he facing now?",
+    "options": ["North", "East", "South", "West"],
+    "correctOption": "South",
+    "difficulty": "Easy",
+    "topic": "Direction Sense",
+    "type": "CAT_SAMPLE",
+    "section": "DILR"
+  },
+  {
+    "title": "Arrangement Puzzle",
+    "description": "Four people are seated in a row. P is not at either end. Q is to the left of P. R is to the right of P. Who must be at one of the ends?",
+    "options": ["P", "Q", "R", "Cannot be determined"],
+    "correctOption": "Cannot be determined",
+    "difficulty": "Medium",
+    "topic": "Seating Arrangement",
+    "type": "CAT_SAMPLE",
+    "section": "DILR"
+  },
+
+  {
+    "title": "Percentage Calculation",
+    "description": "What is 20% of 150?",
+    "options": ["20", "25", "30", "35"],
+    "correctOption": "30",
+    "difficulty": "Easy",
+    "topic": "Percentages",
+    "type": "CAT_SAMPLE",
+    "section": "QA"
+  },
+  {
+    "title": "Simple Interest",
+    "description": "Find the simple interest on ₹2000 at 5% per annum for 3 years.",
+    "options": ["₹200", "₹250", "₹300", "₹350"],
+    "correctOption": "₹300",
+    "difficulty": "Medium",
+    "topic": "Simple Interest",
+    "type": "CAT_SAMPLE",
+    "section": "QA"
+  },
+  {
+    "title": "Train Problem",
+    "description": "A train 150 meters long passes a pole in 10 seconds. What is its speed in km/h?",
+    "options": ["45 km/h", "50 km/h", "54 km/h", "60 km/h"],
+    "correctOption": "54 km/h",
+    "difficulty": "Hard",
+    "topic": "Speed, Time and Distance",
+    "type": "CAT_SAMPLE",
+    "section": "QA"
+  },
+  {
+    "title": "Time and Work",
+    "description": "A can complete a work in 10 days and B can complete the same work in 20 days. If they work together, how long will they take?",
+    "options": ["5 days", "6.67 days", "7 days", "8 days"],
+    "correctOption": "6.67 days",
+    "difficulty": "Medium",
+    "topic": "Time and Work",
+    "type": "CAT_SAMPLE",
+    "section": "QA"
+  },
+  {
+    "title": "Average",
+    "description": "What is the average of the numbers 10, 20 and 30?",
+    "options": ["15", "18", "20", "25"],
+    "correctOption": "20",
+    "difficulty": "Easy",
+    "topic": "Average",
+    "type": "CAT_SAMPLE",
+    "section": "QA"
+  },
+  {
+    "title": "Profit and Loss",
+    "description": "A shopkeeper buys an article for ₹800 and sells it for ₹920. What is the profit percentage?",
+    "options": ["10%", "12%", "15%", "20%"],
+    "correctOption": "15%",
+    "difficulty": "Medium",
+    "topic": "Profit and Loss",
+    "type": "CAT_SAMPLE",
+    "section": "QA"
+  },
+  {
+    "title": "Ratio and Proportion",
+    "description": "If 2:3 = x:15, what is the value of x?",
+    "options": ["8", "9", "10", "12"],
+    "correctOption": "10",
+    "difficulty": "Easy",
+    "topic": "Ratio and Proportion",
+    "type": "CAT_SAMPLE",
+    "section": "QA"
+  },
+  {
+    "title": "LCM",
+    "description": "What is the least common multiple of 12 and 18?",
+    "options": ["24", "30", "36", "48"],
+    "correctOption": "36",
+    "difficulty": "Easy",
+    "topic": "Number System",
+    "type": "CAT_SAMPLE",
+    "section": "QA"
+  },
+  {
+    "title": "Speed Calculation",
+    "description": "A car covers a distance of 60 km in 2 hours. What is its average speed?",
+    "options": ["20 km/h", "25 km/h", "30 km/h", "35 km/h"],
+    "correctOption": "30 km/h",
+    "difficulty": "Easy",
+    "topic": "Speed, Time and Distance",
+    "type": "CAT_SAMPLE",
+    "section": "QA"
+  },
+  {
+    "title": "Number Series",
+    "description": "Find the next number in the series: 2, 6, 12, 20, ?",
+    "options": ["28", "30", "32", "36"],
+    "correctOption": "30",
+    "difficulty": "Medium",
+    "topic": "Number Series",
+    "type": "CAT_SAMPLE",
+    "section": "QA"
+  }
+]
