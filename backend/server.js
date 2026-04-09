@@ -18,7 +18,7 @@ app.use(express.json());
 app.use("/api/problems", problemRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
-app.use("/api/mock", mockRoutes);
+app.use("/api/mock-cat", mockRoutes);
 app.get("/", (req, res) => {
   res.send("AptiCode Backend Running 🚀");
 });

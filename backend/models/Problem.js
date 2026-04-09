@@ -39,6 +39,14 @@ const problemSchema = new mongoose.Schema({
   // Global timing data for rank score calculation
   totalSubmissions: { type: Number, default: 0 },
   totalTimeSpent:   { type: Number, default: 0 },  // sum of all timeTaken (seconds)
+
+  // CAT / mock exam tagging
+  examType: {
+    type: String,
+    enum: ["CAT", null],
+    default: null,
+    index: true,          // speeds up { $match: { examType: "CAT" } }
+  },
 }, { timestamps: true });
 
 const Problem = mongoose.model("Problem", problemSchema);

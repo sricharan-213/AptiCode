@@ -10,6 +10,7 @@ export default function AdminUpload() {
         topic: "",
         author: "",
         reference: "",
+        examType: "",   // "" = none, "CAT" = CAT mock exam
     });
 
     const [status, setStatus] = useState(null); // { type: "success" | "error", msg }
@@ -64,6 +65,7 @@ export default function AdminUpload() {
                     topic: "",
                     author: "",
                     reference: "",
+                    examType: "",
                 });
             } else {
                 setStatus({ type: "error", msg: data.message || "Failed to create problem" });
@@ -229,6 +231,20 @@ export default function AdminUpload() {
                             placeholder="Optional"
                         />
                     </div>
+                </div>
+
+                {/* Exam Tag */}
+                <div>
+                    <label style={labelStyle}>Exam Tag</label>
+                    <select
+                        id="exam-type-select"
+                        style={inputStyle}
+                        value={form.examType}
+                        onChange={(e) => setForm({ ...form, examType: e.target.value })}
+                    >
+                        <option value="">None — general practice problem</option>
+                        <option value="CAT">CAT — include in CAT mock exams</option>
+                    </select>
                 </div>
 
                 {/* Submit */}
