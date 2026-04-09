@@ -1,15 +1,19 @@
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// ── Strictly server-side file – never exposed publicly ──────────
-const QUESTIONS_PATH = path.join(__dirname, "../scripts/cat_sample_questions.json");
+// ── Strictly server-side — never exposed publicly ────────────────
+// Backend is its own git repo; process.cwd() = repo root both locally
+// (when running `npm run dev` from backend/) and on Vercel.
+const QUESTIONS_PATH = path.join(
+  process.cwd(),
+  "scripts",
+  "cat_sample_questions.json"
+);
 const CAT_CORRECT   = 3;
 const CAT_WRONG     = -1;
 const EXAM_DURATION = 3600; // 60 minutes in seconds
+
+
 
 // ─── Load + filter from local JSON ─────────────────────────────
 const loadCATQuestions = () => {
