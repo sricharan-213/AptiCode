@@ -16,6 +16,13 @@ export default function Target() {
           onContinue={() => navigate("/mock-cat/exam")}
         />
         <ExamCard
+          title="UPSC CSE Prelims 2026"
+          desc="Civil Services Examination"
+          color="#8b5cf6"
+          status="Active"
+          onContinue={() => navigate("/mock-upsc/exam")}
+        />
+        <ExamCard
           title="SSC CGL"
           desc="Combined Graduate Level Exam"
           color="#ec4899"

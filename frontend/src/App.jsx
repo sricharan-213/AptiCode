@@ -9,6 +9,7 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import AdminUpload from "./pages/AdminUpload";
 import MockCatExam from "./pages/MockCatExam";
+import MockUpscExam from "./pages/MockUpscExam";
 function App() {
   return (
     <BrowserRouter>
@@ -23,6 +24,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/admin/upload" element={<AdminUpload />} />
           <Route path="/mock-cat/exam" element={<MockCatExam />} />
+          <Route path="/mock-upsc/exam" element={<MockUpscExam />} />
         </Route>
       </Routes>
     </BrowserRouter>
