@@ -7,9 +7,13 @@ export default function Home() {
   const [problemCount, setProblemCount] = useState(0);
 
   useEffect(() => {
-    fetch("https://apticode-backend.onrender.com/api/problems")
+    fetch(`${import.meta.env.VITE_API_URL}/api/problems`)
       .then((res) => res.json())
-      .then((data) => setProblemCount(data.length))
+      .then((data) => {
+        setProblemCount(data.length);
+        // Cache data for instant loading on Problems page
+        localStorage.setItem("problems_cache", JSON.stringify(data));
+      })
       .catch(() => { });
   }, []);
 

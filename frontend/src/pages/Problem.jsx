@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 
-const API = "https://apticode-backend.onrender.com";
+const API = import.meta.env.VITE_API_URL;
 
 /* ── helpers ── */
 const fmtSecs = (s) => {

@@ -43,7 +43,7 @@ export default function AdminUpload() {
         }
 
         try {
-            const res = await fetch("https://apticode-backend.onrender.com/api/problems", {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/problems`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

@@ -3,21 +3,30 @@ import { useState, useEffect } from "react";
 
 export default function Problems() {
   const [solvedProblems, setSolvedProblems] = useState([]);
-  const [problems, setProblems] = useState([]);
+  const [problems, setProblems] = useState(() => {
+    const cached = localStorage.getItem("problems_cache");
+    return cached ? JSON.parse(cached) : [];
+  });
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedTopic, setSelectedTopic] = useState("All Topics");
   const [selectedDifficulty, setSelectedDifficulty] = useState("All");
   const [selectedStatus, setSelectedStatus] = useState("All");
 
   useEffect(() => {
-    fetch("https://apticode-backend.onrender.com/api/problems")
-      .then((res) => res.json())
-      .then((data) => setProblems(data))
-      .catch((err) => console.error("Error fetching problems:", err));
+    // Skip API call if we already have data from cache
+    if (problems.length === 0) {
+      fetch(`${import.meta.env.VITE_API_URL}/api/problems`)
+        .then((res) => res.json())
+        .then((data) => {
+          setProblems(data);
+          localStorage.setItem("problems_cache", JSON.stringify(data));
+        })
+        .catch((err) => console.error("Error fetching problems:", err));
+    }
 
     const token = localStorage.getItem("token");
     if (token) {
-      fetch("https://apticode-backend.onrender.com/api/users/me", {
+      fetch(`${import.meta.env.VITE_API_URL}/api/users/me`, {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then((res) => res.json())

@@ -23,7 +23,7 @@ export default function Signup() {
     e.preventDefault();
 
     try {
-      const res = await fetch("https://apticode-backend.onrender.com/api/auth/signup", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
