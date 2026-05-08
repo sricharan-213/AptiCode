@@ -50,7 +50,8 @@ export default function Login() {
       }
 
     } catch (err) {
-      setMessage("Server error");
+      console.error("Frontend Login Catch Error:", err);
+      setMessage("Network or server connection failed. Please try again.");
     }
   };
 
@@ -99,7 +100,10 @@ export default function Login() {
       </form>
 
       {message && (
-        <p style={{ marginTop: "15px", color: "#22c55e" }}>
+        <p style={{ 
+          marginTop: "15px", 
+          color: message.includes("successful") ? "#22c55e" : "#ef4444" 
+        }}>
           {message}
         </p>
       )}
