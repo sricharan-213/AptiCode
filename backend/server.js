@@ -8,6 +8,7 @@ import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import mockRoutes from "./routes/mockRoutes.js";
 import mockUpscRoutes from "./routes/mockUpscRoutes.js";
+import newsRoutes from "./routes/newsRoutes.js";
 
 const app = express();
 
@@ -35,6 +36,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/mock-cat", mockRoutes);
 app.use("/api/mock-upsc", mockUpscRoutes);
+app.use("/api/exam-news", newsRoutes);
 app.get("/", (req, res) => {
   res.send("AptiCode Backend Running 🚀");
 });

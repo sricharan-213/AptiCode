@@ -30,6 +30,70 @@ export default function Home() {
    🔹 LOGGED-IN: Dashboard with News & Stats
 ========================================= */
 function LoggedInHome({ user, problemCount, navigate }) {
+  const [news, setNews] = useState(null);
+  const [loadingNews, setLoadingNews] = useState(true);
+  const [category, setCategory] = useState("All");
+
+  const categories = ["All", "CAT", "SSC", "Banking", "GATE", "UPSC", "Railway", "Defence"];
+
+  const fallbackNews = [
+    { tag: "CAT 2026", tagColor: "#2563eb", title: "CAT 2026 Registration Opens in August — Key Dates Announced", desc: "IIM Calcutta to conduct CAT 2026. Expected exam date: Last week of November. Registration window: Aug 2 – Sep 20.", time: "2 hours ago", url: "#", source: "AptiCode" },
+    { tag: "SSC CGL", tagColor: "#ec4899", title: "SSC CGL 2026 Tier-1 Cutoff Expected to Rise by 5-8 Marks", desc: "Based on difficulty analysis, the General category cutoff for SSC CGL is projected at 145-150 marks this year.", time: "5 hours ago", url: "#", source: "AptiCode" },
+    { tag: "Banking", tagColor: "#16a34a", title: "IBPS PO 2026 Prelims — Quant Section Analysis & Cutoff", desc: "Quantitative Aptitude section was moderate. Expected sectional cutoff: 8-10 marks. Key topics: DI, Simplification, Number Series.", time: "1 day ago", url: "#", source: "AptiCode" },
+    { tag: "GATE 2026", tagColor: "#ca8a04", title: "GATE 2026 Aptitude Section — 15 Marks Now Mandatory", desc: "General Aptitude section carries 15 marks across all papers. Focus areas: Verbal Ability, Numerical Computation, Data Interpretation.", time: "2 days ago", url: "#", source: "AptiCode" },
+    { tag: "Placements", tagColor: "#8b5cf6", title: "TCS NQT 2026 — Aptitude Cutoff & Preparation Strategy", desc: "TCS NQT aptitude section cutoff expected around 65-70%. Focus on Quant, Logical Reasoning, and Verbal Ability for best results.", time: "3 days ago", url: "#", source: "AptiCode" }
+  ];
+
+  const fetchNews = async (cat = category) => {
+    setLoadingNews(true);
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/exam-news?category=${cat}`);
+      if (!res.ok) throw new Error("Failed to fetch news");
+      const data = await res.json();
+      if (Array.isArray(data)) {
+        const formattedData = data.map(n => ({
+          tag: n.cat || "News",
+          tagColor: getTagColor(n.cat),
+          title: n.title,
+          desc: n.desc,
+          time: n.time,
+          url: n.url,
+          source: n.source
+        }));
+        setNews(formattedData);
+      } else {
+        throw new Error("Invalid format");
+      }
+    } catch (err) {
+      console.error(err);
+      setNews(fallbackNews);
+    } finally {
+      setLoadingNews(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchNews();
+    // eslint-disable-next-line
+  }, []);
+
+  const handleCategoryChange = (cat) => {
+    setCategory(cat);
+    fetchNews(cat);
+  };
+
+  const getTagColor = (tag = "") => {
+    const t = tag.toUpperCase();
+    if (t.includes("CAT")) return "#2563eb";
+    if (t.includes("SSC")) return "#ec4899";
+    if (t.includes("BANK") || t.includes("IBPS") || t.includes("SBI")) return "#16a34a";
+    if (t.includes("GATE")) return "#ca8a04";
+    if (t.includes("UPSC")) return "#8b5cf6";
+    if (t.includes("RAILWAY") || t.includes("RRB")) return "#ef4444";
+    if (t.includes("DEFENCE") || t.includes("CDS")) return "#14b8a6";
+    return "#64748b";
+  };
+
   return (
     <div style={{ padding: "80px 24px 40px 24px", color: "var(--text-color)", maxWidth: "1600px", margin: "0 auto" }}>
 
@@ -72,45 +136,64 @@ function LoggedInHome({ user, problemCount, navigate }) {
       </div>
 
       {/* Aptitude Exam News */}
-      <h2 style={{ fontSize: "20px", fontWeight: "700", marginBottom: "16px", display: "flex", alignItems: "center", gap: "8px" }}>
-        📰 Aptitude Exam Updates
-      </h2>
-      <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginBottom: "40px" }}>
-        <NewsCard
-          tag="CAT 2026"
-          tagColor="#2563eb"
-          title="CAT 2026 Registration Opens in August — Key Dates Announced"
-          desc="IIM Calcutta to conduct CAT 2026. Expected exam date: Last week of November. Registration window: Aug 2 – Sep 20."
-          time="2 hours ago"
-        />
-        <NewsCard
-          tag="SSC CGL"
-          tagColor="#ec4899"
-          title="SSC CGL 2026 Tier-1 Cutoff Expected to Rise by 5-8 Marks"
-          desc="Based on difficulty analysis, the General category cutoff for SSC CGL is projected at 145-150 marks this year."
-          time="5 hours ago"
-        />
-        <NewsCard
-          tag="Banking"
-          tagColor="#16a34a"
-          title="IBPS PO 2026 Prelims — Quant Section Analysis & Cutoff"
-          desc="Quantitative Aptitude section was moderate. Expected sectional cutoff: 8-10 marks. Key topics: DI, Simplification, Number Series."
-          time="1 day ago"
-        />
-        <NewsCard
-          tag="GATE 2026"
-          tagColor="#ca8a04"
-          title="GATE 2026 Aptitude Section — 15 Marks Now Mandatory"
-          desc="General Aptitude section carries 15 marks across all papers. Focus areas: Verbal Ability, Numerical Computation, Data Interpretation."
-          time="2 days ago"
-        />
-        <NewsCard
-          tag="Placements"
-          tagColor="#8b5cf6"
-          title="TCS NQT 2026 — Aptitude Cutoff & Preparation Strategy"
-          desc="TCS NQT aptitude section cutoff expected around 65-70%. Focus on Quant, Logical Reasoning, and Verbal Ability for best results."
-          time="3 days ago"
-        />
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "16px" }}>
+        <h2 style={{ fontSize: "20px", fontWeight: "700", display: "flex", alignItems: "center", gap: "8px", margin: 0 }}>
+          📰 Aptitude Exam Updates
+        </h2>
+        <button 
+          onClick={() => fetchNews(category)}
+          disabled={loadingNews}
+          style={{
+            padding: "6px 12px", background: "transparent", color: "var(--accent)",
+            border: "1px solid var(--accent)", borderRadius: "6px", cursor: loadingNews ? "not-allowed" : "pointer",
+            fontSize: "13px", fontWeight: "600", display: "flex", alignItems: "center", gap: "6px",
+            opacity: loadingNews ? 0.7 : 1
+          }}
+        >
+          {loadingNews ? "⏳ Fetching..." : "🔄 Refresh"}
+        </button>
+      </div>
+
+      <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "16px" }}>
+        {categories.map(cat => (
+          <button
+            key={cat}
+            onClick={() => handleCategoryChange(cat)}
+            style={{
+              padding: "6px 14px",
+              borderRadius: "20px",
+              border: "1px solid",
+              borderColor: category === cat ? "var(--accent)" : "var(--card-border)",
+              background: category === cat ? "var(--accent)" : "transparent",
+              color: category === cat ? "white" : "var(--text-color)",
+              cursor: "pointer",
+              fontSize: "13px",
+              fontWeight: "500",
+              transition: "all 0.2s"
+            }}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+
+      <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginBottom: "40px", minHeight: "200px" }}>
+        {loadingNews && (!news || news.length === 0) ? (
+          <div style={{ padding: "40px", textAlign: "center", color: "var(--muted-text)" }}>
+            ⏳ Fetching real-time exam news...
+          </div>
+        ) : news?.map((item, idx) => (
+          <NewsCard
+            key={idx}
+            tag={item.tag}
+            tagColor={item.tagColor}
+            title={item.title}
+            desc={item.desc}
+            time={item.time}
+            url={item.url}
+            source={item.source}
+          />
+        ))}
       </div>
 
       {/* Exam Cutoffs Table */}
@@ -291,36 +374,53 @@ function QuickStat({ value, label, icon }) {
   );
 }
 
-function NewsCard({ tag, tagColor, title, desc, time }) {
+function NewsCard({ tag, tagColor, title, desc, time, url, source }) {
   return (
-    <div
+    <a
+      href={url || "#"}
+      target={url && url !== "#" ? "_blank" : "_self"}
+      rel="noreferrer"
       style={{
+        display: "block",
+        textDecoration: "none",
+        color: "inherit",
         background: "var(--card-bg)",
         borderRadius: "10px",
         padding: "20px",
         border: "1px solid var(--card-border)",
-        transition: "border-color 0.2s",
-        cursor: "default",
+        transition: "border-color 0.2s, transform 0.2s",
+        cursor: "pointer",
       }}
-      onMouseEnter={(e) => (e.currentTarget.style.borderColor = "var(--muted-text)")}
-      onMouseLeave={(e) => (e.currentTarget.style.borderColor = "var(--card-border)")}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.borderColor = tagColor || "var(--muted-text)";
+        e.currentTarget.style.transform = "translateX(4px)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.borderColor = "var(--card-border)";
+        e.currentTarget.style.transform = "translateX(0)";
+      }}
     >
-      <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px", flexWrap: "wrap" }}>
         <span style={{
           padding: "3px 10px",
           borderRadius: "12px",
-          background: `${tagColor}22`,
-          color: tagColor,
+          background: `${tagColor || '#2563eb'}22`,
+          color: tagColor || '#2563eb',
           fontSize: "12px",
           fontWeight: "600",
         }}>
           {tag}
         </span>
+        {source && (
+          <span style={{ fontSize: "12px", color: "var(--muted-text)", background: "rgba(0,0,0,0.05)", padding: "2px 8px", borderRadius: "4px" }}>
+            via {source}
+          </span>
+        )}
         <span style={{ color: "var(--muted-text)", fontSize: "12px", marginLeft: "auto" }}>{time}</span>
       </div>
-      <h3 style={{ fontSize: "15px", fontWeight: "600", marginBottom: "6px", lineHeight: "1.4" }}>{title}</h3>
+      <h3 style={{ fontSize: "15px", fontWeight: "600", marginBottom: "6px", lineHeight: "1.4", color: "var(--text-color)" }}>{title}</h3>
       <p style={{ color: "var(--muted-text)", fontSize: "13px", lineHeight: "1.5" }}>{desc}</p>
-    </div>
+    </a>
   );
 }
 
